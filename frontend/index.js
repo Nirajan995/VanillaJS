@@ -14,8 +14,16 @@ const getProducts = async () => {
 };
 
 const editHandler = (prd) => {
-   console.log(prd)
+   console.log(prd);
 
+}
+
+const submitEditHandler = (product) => {
+   console.log(product.thumbnail);
+}
+
+const submitDeleteHandler = (product) => {
+   console.log(product.id);
 }
 
 
@@ -31,7 +39,6 @@ if (localStorage.getItem("products") !== null) {
 
    // console.log(products)
    products.forEach((product) => {
-      // console.log(product)
       const div = document.createElement("div");
       div.style = "width: 23%"
       div.className = "card m-2";
@@ -44,8 +51,29 @@ if (localStorage.getItem("products") !== null) {
       p.className = "text-center";
       p.innerText = product.title;
 
+      const editButton = document.createElement('button');
+      editButton.className = 'btn btn-primary mb-2';
+      editButton.innerText = 'Edit';
+      editButton.addEventListener('click', (event) => {
+         event.preventDefault();
+         //function call
+         submitEditHandler(product);
+      })
+
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'btn btn-danger';
+      deleteButton.innerText = 'Delete';
+      deleteButton.addEventListener('click', (event) => {
+         event.preventDefault();
+         //function call
+         submitDeleteHandler(product);
+
+      })
+
       div.append(image);
       div.append(p);
+      div.append(editButton);
+      div.append(deleteButton);
 
       //append divs in container to html
       const container = document.getElementById("container");
@@ -55,6 +83,6 @@ if (localStorage.getItem("products") !== null) {
 
 
 } else {
-   console.log('No data found')
+   document.getElementById('container').innerHTML = 'No data found';
 }
 

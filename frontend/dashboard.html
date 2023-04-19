@@ -41,7 +41,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Add Product</h5>
             <button
               type="button"
               class="btn-close"
@@ -50,8 +50,32 @@
             ></button>
           </div>
           <div class="modal-body">
-            <label for="">Prod Name</label>
-            <input type="text" placeholder="Product Name" />
+            <label for="productName">Prod Name</label>
+            <input
+              type="text"
+              placeholder="Product Name"
+              id="productName"
+              class="form-control"
+            />
+            <br />
+            <label for="productDescription">Prod Description</label>
+            <input
+              type="text"
+              placeholder="Product Description"
+              id="productDescription"
+              class="form-control"
+            />
+            <br />
+
+            <label for="productImage">Image</label>
+            <input
+              type="text"
+              placeholder="Product Name"
+              id="productImage"
+              class="form-control"
+              readonly
+              value="https://i.dummyjson.com/data/products/3/thumbnail.jpg"
+            />
           </div>
           <div class="modal-footer">
             <button
@@ -61,13 +85,12 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <button type="button" class="btn btn-primary">Add Product</button>
           </div>
         </div>
       </div>
     </div>
     <button class="btn btn-secondary">Logout</button>
-    <input type="text" placeholder="Enter prod title" />
     <div
       id="container"
       style="display: flex; flex-wrap: wrap; justify-content: space-evenly"
