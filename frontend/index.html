@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Login Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <h1 style="text-align: center">Login Page</h1>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Email address</label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          onclick="loginHandler(event)"
+        >
+          Submit
+        </button>
+        <span class="text-danger"></span>
+        <p>
+          Don't have an account? Click here to <a href="signup.html">Signup</a>
+        </p>
+      </form>
+    </div>
+
+    <script>
+      const loginHandler = async (event) => {
+        event.preventDefault();
+        const email = document.querySelector("#exampleInputEmail1").value;
+        const password = document.querySelector("#exampleInputPassword1").value;
+        let submitData = {
+          email,
+          password,
+        };
+
+        const resp = await fetch("http://localhost:8080/api/v1/login", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(submitData),
+        });
+
+        const respData = await resp.json();
+
+        if (respData.status) {
+          sessionStorage.setItem("isUserLoggedIn", true);
+          window.location.href = "dashboard.html";
+        } else {
+          document.querySelector("span").innerHTML = respData.message;
+          return;
+        }
+      };
+    </script>
+  </body>
+</html>
