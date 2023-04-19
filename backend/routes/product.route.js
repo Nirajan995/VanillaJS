@@ -41,7 +41,7 @@ router.get('/products/:id', async (req, res) => {
 router.delete('/products/:id', async (req, res) => {
    const { id } = req.params;
 
-   const product = await Product.deleteOne({ id });
+   const product = await Product.deleteOne({ _id: id });
 
    if (product) {
       return res.status(200).json({ status: true, message: "product deleted successfully" });

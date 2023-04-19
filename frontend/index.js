@@ -18,12 +18,53 @@ const editHandler = (prd) => {
 
 }
 
+//Function called when edit button is clicked
 const submitEditHandler = (product) => {
    console.log(product.thumbnail);
 }
 
-const submitDeleteHandler = (product) => {
-   console.log(product.id);
+//Function called when delete button is clicked
+const submitDeleteHandler = async (product) => {
+   const response = await fetch(`http://localhost:8080/api/v1/products/${product['_id']}`, {
+      method: 'DELETE'
+   });
+   const deletedProd = await response.json();
+
+   const prods = localStorage.getItem("products");
+   const filteredProd = JSON.parse(prods).filter((prod) => {
+      return prod._id !== product._id;
+   })
+   console.log(filteredProd)
+}
+
+//This is the button click for add product from the modal.
+const addProductHandler = async (event) => {
+   event.preventDefault();
+   const productName = document.getElementById('productName').value;
+   const productDescription = document.getElementById('productDescription').value;
+   const productImage = document.getElementById('productImage').value;
+
+   let prod = {
+      title: productName,
+      description: productDescription,
+      thumbnail: productImage
+   }
+
+   //Calling backend POST API for adding new product
+   const response = await fetch('http://localhost:8080/api/v1/products', {
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(prod)
+   });
+
+   const submittedData = await response.json();
+
+   if (submittedData.status) {
+      window.location.reload();
+   }
+
 }
 
 
