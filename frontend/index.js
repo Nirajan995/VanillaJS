@@ -64,6 +64,44 @@ const addProductHandler = async (event) => {
 
 }
 
+//This is the button click to submit edited value
+const submitEditHandlerBackend = (prod) => {
+   document.getElementById('editProductId').value = prod._id;
+   document.getElementById('editProductName').value = prod.title;
+   document.getElementById('editProductDescription').value = prod.description;
+   document.getElementById('editProductImage').value = prod.thumbnail;
+
+
+}
+
+
+//Clicking from modal - Edit product which triggers backend
+async function handleEdit(event) {
+   let title = document.getElementById('editProductName').value;
+   let description = document.getElementById('editProductDescription').value;
+   let thumbnail = document.getElementById('editProductImage').value;
+
+   let obj = {
+      title,
+      description,
+      thumbnail
+   }
+
+   let prodId = document.getElementById('editProductId').value;
+
+   const response = await fetch(`http://localhost:8080/api/v1/products/${prodId}`, {
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify(obj)
+   });
+
+   const data = await response.json()
+
+   debugger;
+}
+
 
 getProducts();
 
@@ -90,13 +128,15 @@ if (localStorage.getItem("products") !== null) {
       p.innerText = product.title;
 
       const editButton = document.createElement('button');
-      editButton.className = 'btn btn-primary mb-2';
+      editButton.className = 'btn btn-secondary mb-2';
       editButton.innerText = 'Edit';
+      editButton.setAttribute('data-bs-toggle', 'modal');
+      editButton.setAttribute('data-bs-target', '#editStaticBackdrop');
 
       editButton.addEventListener('click', (event) => {
          event.preventDefault();
          //function call
-         submitEditHandler(product);
+         submitEditHandlerBackend(product);
       })
 
       const deleteButton = document.createElement('button');

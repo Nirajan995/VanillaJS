@@ -3,6 +3,7 @@ const Product = require("../models/products.model");
 
 const router = express.Router();
 
+
 router.post('/products', async (req, res) => {
    const body = req.body;
 
@@ -55,11 +56,9 @@ router.patch('/products/:id', async (req, res) => {
    const { id } = req.params;
    const body = req.body;
 
-   const product = await Product.findOneAndUpdate({ _id: id }, {
-      $set: {
-         body
-      },
 
+   const product = await Product.findOneAndUpdate({ _id: id }, {
+      $set: body,
    })
 
    if (product) {

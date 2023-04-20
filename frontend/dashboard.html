@@ -28,7 +28,7 @@
       Add Product
     </button>
 
-    <!-- Modal -->
+    <!--Add Modal -->
     <div
       class="modal fade"
       id="staticBackdrop"
@@ -97,20 +97,20 @@
       </div>
     </div>
 
-    <!-- Edit Modal -->
+    <!--Edit Modal -->
     <div
       class="modal fade"
-      id="editstaticBackdrop"
+      id="editStaticBackdrop"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
-      aria-labelledby="editstaticBackdropLabel"
+      aria-labelledby="editStaticBackdrop"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editstaticBackdropLabel">
+            <h5 class="modal-title" id="editStaticBackdropLabel">
               Edit Product
             </h5>
             <button
@@ -121,31 +121,37 @@
             ></button>
           </div>
           <div class="modal-body">
-            <label for="productName">Prod Name</label>
+            <input
+              type="hidden"
+              readonly
+              placeholder="Product ID"
+              id="editProductId"
+              class="form-control"
+            />
+            <label for="editProductName">Prod Name</label>
             <input
               type="text"
               placeholder="Product Name"
-              id="editproductName"
+              id="editProductName"
               class="form-control"
             />
             <br />
-            <label for="productDescription">Prod Description</label>
+            <label for="editProductDescription">Prod Description</label>
             <input
               type="text"
               placeholder="Product Description"
-              id="productDescription"
+              id="editProductDescription"
               class="form-control"
             />
             <br />
 
-            <label for="productImage">Image</label>
+            <label for="editProductImage">Image</label>
             <input
               type="text"
               placeholder="Product Name"
-              id="productImage"
+              id="editProductImage"
               class="form-control"
               readonly
-              value="https://i.dummyjson.com/data/products/3/thumbnail.jpg"
             />
           </div>
           <div class="modal-footer">
@@ -159,9 +165,9 @@
             <button
               type="button"
               class="btn btn-primary"
-              onclick="addProductHandler(event)"
+              onclick="handleEdit(event)"
             >
-              Add Product
+              Edit Product
             </button>
           </div>
         </div>
