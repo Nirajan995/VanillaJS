@@ -13,14 +13,10 @@ const getProducts = async () => {
 
 };
 
-const editHandler = (prd) => {
-   console.log(prd);
-
-}
-
 //Function called when edit button is clicked
 const submitEditHandler = (product) => {
-   console.log(product.thumbnail);
+   document.getElementById('editproductName').value = product.title;
+
 }
 
 //Function called when delete button is clicked
@@ -34,7 +30,8 @@ const submitDeleteHandler = async (product) => {
    const filteredProd = JSON.parse(prods).filter((prod) => {
       return prod._id !== product._id;
    })
-   console.log(filteredProd)
+   localStorage.setItem("products", filteredProd);
+   window.location.reload();
 }
 
 //This is the button click for add product from the modal.
@@ -62,7 +59,7 @@ const addProductHandler = async (event) => {
    const submittedData = await response.json();
 
    if (submittedData.status) {
-      window.location.reload();
+      setTimeout(() => { document.location.reload(); }, 0);
    }
 
 }
@@ -95,6 +92,7 @@ if (localStorage.getItem("products") !== null) {
       const editButton = document.createElement('button');
       editButton.className = 'btn btn-primary mb-2';
       editButton.innerText = 'Edit';
+
       editButton.addEventListener('click', (event) => {
          event.preventDefault();
          //function call

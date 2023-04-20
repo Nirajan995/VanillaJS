@@ -96,6 +96,78 @@
         </div>
       </div>
     </div>
+
+    <!-- Edit Modal -->
+    <div
+      class="modal fade"
+      id="editstaticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="editstaticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editstaticBackdropLabel">
+              Edit Product
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <label for="productName">Prod Name</label>
+            <input
+              type="text"
+              placeholder="Product Name"
+              id="editproductName"
+              class="form-control"
+            />
+            <br />
+            <label for="productDescription">Prod Description</label>
+            <input
+              type="text"
+              placeholder="Product Description"
+              id="productDescription"
+              class="form-control"
+            />
+            <br />
+
+            <label for="productImage">Image</label>
+            <input
+              type="text"
+              placeholder="Product Name"
+              id="productImage"
+              class="form-control"
+              readonly
+              value="https://i.dummyjson.com/data/products/3/thumbnail.jpg"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="addProductHandler(event)"
+            >
+              Add Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <button class="btn btn-secondary">Logout</button>
     <div
       id="container"
