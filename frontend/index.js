@@ -9,112 +9,7 @@ const getProducts = async () => {
    //object destructuring
    const { data } = product;
 
-   localStorage.setItem("products", JSON.stringify(data))
-
-};
-
-//Function called when edit button is clicked
-const submitEditHandler = (product) => {
-   document.getElementById('editproductName').value = product.title;
-
-}
-
-//Function called when delete button is clicked
-const submitDeleteHandler = async (product) => {
-   const response = await fetch(`http://localhost:8080/api/v1/products/${product['_id']}`, {
-      method: 'DELETE'
-   });
-   const deletedProd = await response.json();
-
-   const prods = localStorage.getItem("products");
-   const filteredProd = JSON.parse(prods).filter((prod) => {
-      return prod._id !== product._id;
-   })
-   localStorage.setItem("products", filteredProd);
-   window.location.reload();
-}
-
-//This is the button click for add product from the modal.
-const addProductHandler = async (event) => {
-   event.preventDefault();
-   const productName = document.getElementById('productName').value;
-   const productDescription = document.getElementById('productDescription').value;
-   const productImage = document.getElementById('productImage').value;
-
-   let prod = {
-      title: productName,
-      description: productDescription,
-      thumbnail: productImage
-   }
-
-   //Calling backend POST API for adding new product
-   const response = await fetch('http://localhost:8080/api/v1/products', {
-      headers: {
-         'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(prod)
-   });
-
-   const submittedData = await response.json();
-
-   if (submittedData.status) {
-      setTimeout(() => { document.location.reload(); }, 0);
-   }
-
-}
-
-//This is the button click to submit edited value
-const submitEditHandlerBackend = (prod) => {
-   document.getElementById('editProductId').value = prod._id;
-   document.getElementById('editProductName').value = prod.title;
-   document.getElementById('editProductDescription').value = prod.description;
-   document.getElementById('editProductImage').value = prod.thumbnail;
-
-
-}
-
-
-//Clicking from modal - Edit product which triggers backend
-async function handleEdit(event) {
-   let title = document.getElementById('editProductName').value;
-   let description = document.getElementById('editProductDescription').value;
-   let thumbnail = document.getElementById('editProductImage').value;
-
-   let obj = {
-      title,
-      description,
-      thumbnail
-   }
-
-   let prodId = document.getElementById('editProductId').value;
-
-   const response = await fetch(`http://localhost:8080/api/v1/products/${prodId}`, {
-      headers: {
-         'Content-Type': 'application/json'
-      },
-      method: 'PATCH',
-      body: JSON.stringify(obj)
-   });
-
-   const data = await response.json()
-
-   debugger;
-}
-
-
-getProducts();
-
-
-
-if (localStorage.getItem("products") !== null) {
-
-   //getting item from local storage
-   backendProducts = localStorage.getItem("products");
-   const products = JSON.parse(backendProducts);
-
-   // console.log(products)
-   products.forEach((product) => {
+   data.forEach((product) => {
       const div = document.createElement("div");
       div.style = "width: 23%"
       div.className = "card m-2";
@@ -160,8 +55,99 @@ if (localStorage.getItem("products") !== null) {
 
    })
 
+};
 
-} else {
-   document.getElementById('container').innerHTML = 'No data found';
+
+//COnditional operator
+// a ? console.log('true') : console.log('false');
+
+
+//Function called when edit button is clicked
+const submitEditHandler = (product) => {
+   document.getElementById('editproductName').value = product.title;
+
 }
+
+//Function called when delete button is clicked
+const submitDeleteHandler = async (product) => {
+   const response = await fetch(`http://localhost:8080/api/v1/products/${product['_id']}`, {
+      method: 'DELETE'
+   });
+   const deletedProd = await response.json();
+
+   if (deletedProd.status) {
+      window.location.reload();
+   }
+}
+
+//This is the button click for add product from the modal.
+const addProductHandler = async (event) => {
+   event.preventDefault();
+   const productName = document.getElementById('productName').value;
+   const productDescription = document.getElementById('productDescription').value;
+   const productImage = document.getElementById('productImage').value;
+
+   let prod = {
+      title: productName,
+      description: productDescription,
+      thumbnail: productImage
+   }
+
+   //Calling backend POST API for adding new product
+   const response = await fetch('http://localhost:8080/api/v1/products', {
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(prod)
+   });
+
+   const submittedData = await response.json();
+
+   if (submittedData.status) {
+      window.location.reload();
+   }
+
+}
+
+//This is the button click to submit edited value
+const submitEditHandlerBackend = (prod) => {
+   document.getElementById('editProductId').value = prod._id;
+   document.getElementById('editProductName').value = prod.title;
+   document.getElementById('editProductDescription').value = prod.description;
+   document.getElementById('editProductImage').value = prod.thumbnail;
+}
+
+
+//Clicking from modal - Edit product which triggers backend
+async function handleEdit(event) {
+   let title = document.getElementById('editProductName').value;
+   let description = document.getElementById('editProductDescription').value;
+   let thumbnail = document.getElementById('editProductImage').value;
+
+   let obj = {
+      title,
+      description,
+      thumbnail
+   }
+
+   let prodId = document.getElementById('editProductId').value;
+
+   const response = await fetch(`http://localhost:8080/api/v1/products/${prodId}`, {
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify(obj)
+   });
+
+   const data = await response.json()
+
+   if (data.status) {
+      window.location.reload()
+   }
+}
+
+getProducts();
+
 
